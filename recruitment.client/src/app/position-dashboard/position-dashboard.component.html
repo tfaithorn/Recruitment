@@ -1,0 +1,6 @@
+<h2>Position Dashboard</h2>
+<hr>
+<button class="btn btn-primary mb-3" type="button" [routerLink]="['/position/new']">New Position</button>
+<input type="text" class="form form-control mb-2" placeholder="Search">
+<app-message-container [successes]="successes"></app-message-container>
+<app-fancy-grid [data]="data"></app-fancy-grid>

@@ -1,0 +1,61 @@
+<div class="nav-offset" [ngClass]="{'nav-expand': expand, 'nav-collapse': !expand }"></div>
+<div class="nav-container" [ngClass]="{'nav-expand': expand, 'nav-collapse': !expand }">
+    <div class="nav-item-container">
+        <!-- expanded menu -->
+        <div *ngIf="expand">
+            <div *ngFor="let item of menuItems">
+                <div class="nav-item" (click)="toggleMenuItem(item.id)" [ngClass]="{'nav-item-active': selectedMenuItem == item.id}">
+                    <i class="{{ item.iconClass }}"></i>
+                    <div class="nav-item-name">
+                        <span>{{ item.name }}</span>
+                    </div>
+                    <div class="chevron-right-container">
+                        <i class="bi bi-chevron-right chevron-right" [ngClass]="{ 'rotate-down' : selectedMenuItem == item.id }"></i>
+                    </div>
+                </div>
+                <div 
+                    class="nav-sub" 
+                    *ngIf="selectedMenuItem == item.id"
+                    >
+                    <div 
+                        class="nav-sub-item" 
+                        *ngFor="let subItem of item.subItems" 
+                        [ngClass]="{'selectedSubItem' : subItem.id == selectedSubMenuItem }"
+                        (click)="selectSubMenuItem(subItem.id)"
+                        [routerLink]="[subItem.url]">
+                        {{ subItem.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- collapsed menu -->
+        <div *ngIf="!expand">
+            <div class="collapsed-nav-item">
+                <div *ngFor="let item of menuItems" class="collapsed-menu-item">
+                    <div class="collapsed-icon">
+                        <i class="{{ item.iconClass }} collapsed-icon"></i>
+                    </div>
+                    <div class="collapsed-nav-sub">
+                        <div class="collapsed-nav-header nav-item-active">
+                            {{ item.name }}
+                        </div>
+                        <div 
+                            *ngFor="let subItem of item.subItems" 
+                            class="nav-sub-item collapsed-nav-sub-item"
+                            [ngClass]="{'selectedSubItem' : subItem.id == selectedSubMenuItem }"
+                            (click)="selectSubMenuItem(subItem.id)"
+                            [routerLink]="[subItem.url]">
+                            {{ subItem.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-toggle">
+        <div></div>
+        <div class="nav-toggle-container" (click)="toggleNav()">
+            <span [ngClass]="{'bi-chevron-double-left' : expand, 'bi-chevron-double-right' : !expand}" class="bi"></span>
+        </div>
+    </div>
+</div>

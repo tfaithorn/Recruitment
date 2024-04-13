@@ -1,0 +1,14 @@
+<div class="table-container" [style]="data?.styles">
+    <div class="headers">
+        <div *ngFor="let header of data?.headers" class="col-header" [style]="header.styles">
+            {{ header.content }}
+        </div>
+    </div>
+    <div class="scroll-view">
+        <div *ngFor="let row of data?.rows" class="col-row" [routerLink]="[row.routerLink]">
+            <div class="col" *ngFor="let column of row.columns" [style]="column.styles" [routerLink]="row.routerLink" #col [title]="isEllipsisActive(col) ? column.content : ''">
+                {{column.content}}
+            </div>
+        </div>
+    </div>
+</div>

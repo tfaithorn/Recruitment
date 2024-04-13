@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    box-sizing: border-box;
+    margin:0px;
+    padding: 0px;
+}
+
+:root {
+    --nav-collapsed-width: 60px;
+    /* --nav-color: rgb(247, 247, 255); */
+    --nav-color: #f8f8f8;
+    --nav-border-color: rgba(194, 194, 216, 0.661);
+    --top-nav-height: 60px;
+}
+
+
+
+.small-input, .form-control.small-input {
+    max-width:600px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.form-label {
+    font-weight: 500;
+    padding-top: 5px;
+}
+
+.w-fit {
+    width: fit-content;
+}
+
+.required {
+    color:red;
+}

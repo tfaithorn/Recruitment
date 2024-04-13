@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "t+pk6ko8P0hFzlGR29gmuWAeKEKO++XXVjdoFRvnbZ8=",
+  "Source": "Recruitment.Server",
+  "BasePath": "_content/Recruitment.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\tom_t\\source\\repos\\Recruitment\\recruitment.client\\recruitment.client.esproj",
+      "Version": 2,
+      "Source": "recruitment.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

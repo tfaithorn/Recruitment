@@ -1,0 +1,19 @@
+.applicant-form-container {
+    /* padding-top:5px;
+    padding-bottom:5px; */
+}
+.applicant-form-group {
+    display:flex;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+.applicant-form-label {
+    width:120px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.applicant-form-value {
+    padding-left:10px;
+    -webkit-text-size-adjust:100%;
+}

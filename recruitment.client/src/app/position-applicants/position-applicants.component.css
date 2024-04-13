@@ -1,0 +1,133 @@
+.applicant-stage-container {
+    justify-content:flex-start;
+    display:flex;
+}
+
+.applicant-container {
+    min-width:150px;
+    max-width:150px;
+    border-right: 1px solid rgba(0, 0, 0, 0.175);
+    height: 100%;
+}
+
+.applicant-offset {
+    height: 35px;
+    max-height: 35px;
+    min-height: 35px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+.applicant {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height:35px;
+    width: 100%;
+}
+
+.applicant:last-child {
+    border-bottom: 0px;
+}
+
+.applicant-stage {
+    height:35px;
+    flex-grow: 1;
+    border-right: 1px solid rgba(0, 0, 0, 0.175);
+    position:relative;
+}
+
+.applicant-stage:last-child {
+    border-right: 0px;
+}
+
+.applicant-stage-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+.applicant-stage-row:last-child {
+    border-bottom: 0px;
+}
+
+.applicant:hover {
+    background-color: rgba(0, 0, 0, 0.175);
+    cursor:pointer;
+}
+
+.stage-headers {
+    height: 35px;
+    max-height: 35px;
+    min-height: 35px;
+    border-bottom:  1px solid rgba(0, 0, 0, 0.175);
+    width: 100%;
+}
+
+.stage-header {
+    flex-grow: 1;
+    text-align: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.175);
+    min-width:100px;
+    height: 35px;
+    max-height: 35px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.stage-header:first-of-type {
+    border-left: 0px;
+}
+
+.completed-bar {
+    background-color: rgb(66, 205, 66);
+    border: 0px;
+    width: calc(100% + 1px);
+    height:15px;
+    cursor: pointer;
+}
+
+.current-bar {
+    background-color: rgb(66, 205, 66);
+    height:15px;
+    width: 50%;
+    cursor: pointer;
+}
+
+.current-bar:hover, .completed-bar:hover {
+    background-color: rgb(57, 173, 57);
+}
+
+.current-circle {
+    height:25px;
+    width:25px;
+    border-radius: 25px;
+    background-color: white;
+    border: 1px solid black;
+    position:absolute;
+    top: calc(50% - 12.5px);
+    left: calc(50% - 12.5px);
+}
+
+.current-circle:hover {
+    background-color: rgb(220, 219, 219);
+    cursor: pointer;
+}
+
+.declined-stage {
+    background-color: red;
+    border: 0px;
+}
+
+.hired-stage {
+    background-color: green;
+    border: 0px;
+}
+
+.stage-container {
+    overflow: auto;
+    min-width: 0;
+}
+
+.clickable {
+    cursor: pointer;
+}

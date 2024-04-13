@@ -1,0 +1,19 @@
+<div class="multi-select-dropdown-container">
+    <div>
+        <div class="selected-options" *ngIf="selectedValues.length > 0">
+            <div class="selected-option-container" *ngFor="let selectedValue of selectedValues">
+                <div class="selected-option">{{ getNameFromValue(selectedValue) }} <span class="remove-icon" aria-hidden="true" (click)="removeOption(selectedValue)">&times;</span></div>
+            </div>
+        </div>
+        <div class="text-input-container">
+            <input type="text" #textInput [placeholder]="placeholder" class="form-control" (focus)="showOptions($any($event.target).value)" (focusout)="hideOptions()" (input)="updateSearchText($any($event.target).value)">
+            <div *ngIf="optionsVisible && filteredOptions" #dropdownSelector class="multi-select-dropdown">
+                <div *ngFor="let option of filteredOptions">
+                    <div class="multi-select-dropdown-option" (click)="add(option.value)">
+                        {{ option.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

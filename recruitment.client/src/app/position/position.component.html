@@ -1,0 +1,193 @@
+<h2>Position</h2>
+<hr>
+<app-back-button [classNames]="'mb-2 me-2'"></app-back-button>
+<form name="short-description-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row d-flex flex-row">
+        <div class="col-lg-12 mb-3">
+            <div class="card">
+                <h5 class="card-header">
+                    Position Details
+                </h5>
+                <div class="card-body px-4">
+                    <div class="row">
+                        <div class="col-lg-6 px-4">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Title<span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    class="form-control"
+                                    name="name"
+                                    formControlName="name"
+                                    aria-describedby="title" 
+                                    placeholder="Enter title">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail" class="form-label">Contact Email address<span class="required">*</span></label>
+                                <input 
+                                    type="email" 
+                                    name="contactEmail" 
+                                    formControlName="contactEmail"
+                                    class="form-control"
+                                    placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="locations" class="form-label">Locations<span class="required">*</span></label>
+                                <app-multi-select-dropdown formControlName="locations" [options]="locationOptions" [placeholder]="'Select Locations'" ></app-multi-select-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 px-4">
+                            <div class="form-group">
+                                <label for="workType" class="form-label">Work Type<span class="required">*</span></label>
+                                <select
+                                    name="workType"
+                                    class="form-control"
+                                    formControlName="workType"> 
+                                    <option value="" selected>Please select a Work Type</option>
+                                    <option>Full Time</option>
+                                    <option>Part Time</option>
+                                    <option>Casual</option>
+                                    <option>Contract</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category" class="form-label">Category<span class="required">*</span></label>
+                                <select
+                                    name="category"
+                                    class="form-control"
+                                    formControlName="category"> 
+                                    <option value="" selected>Please select category</option>
+                                    <!-- TODO: replace with more options preferably from API -->
+                                    <option>Legal</option>
+                                    <option>Hospitality & Tourism</option>
+                                    <option>Government</option>
+                                    <option>Emergency Services</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-3">
+            <div class="card">
+                <h5 class="card-header">
+                    Pay Details
+                </h5>
+                <div class="card-body px-4">
+                    <div class="row">
+                        <div class="col-lg-6 px-4">
+                            <div class="form-group">
+                                <label for="payType" class="form-label">Pay Type<span class="required">*</span></label>
+                                <select
+                                    name="payType"
+                                    class="form-control"
+                                    formControlName="payType"> 
+                                    <option value="" selected>Please select a Pay Type</option>
+                                    <option>Annual salary</option>
+                                    <option>Hourly Rate</option>
+                                    <option>Annual & Commission</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="visibleSalary" class="form-label">Visible salary<span class="required">*</span></label>
+                                <input 
+                                    type="text"
+                                    name="visibleSalary" 
+                                    formControlName="visibleSalary"
+                                    class="form-control"
+                                    placeholder="Visible salary">
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-6 px-4">
+                            <div class="form-group">
+                                <label for="minSalary" class="form-label">Minimum salary<span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="minimumSalary" 
+                                    formControlName="minimumSalary"
+                                    class="form-control"
+                                    placeholder="Minimum salary">
+                            </div>
+                            <div class="form-group">
+                                <label for="salaryMax" class="form-label">Maximum salary<span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="maximumSalary" 
+                                    formControlName="maximumSalary"
+                                    class="form-control"
+                                    placeholder="Maximum salary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-3">
+            <div class="card pb-2">
+                <h5 class="card-header">
+                    Job Details
+                </h5>
+                <div class="card-body px-4">
+                    <div class="form-group">
+                        <label class="form-label">Short description<span class="required">*</span></label>
+                        <div id="short-description"></div>
+                        <editor 
+
+                            name="shortDescription"
+                            formControlName="shortDescription"
+                            (onKeyDown)="limitShortDescriptionCharacters($event)"
+                            [init]="{
+                            height: 250,
+                            promotion: false,
+                            branding: false,
+                            menubar: false,
+                            license_key : 'gpl',
+                            statusbar: false,
+                            plugins: 'wordcount'
+                            }"></editor>
+                            <div class="character-count-footer">
+                            <span
+                                [innerHTML]="shortDescriptionCharacterCount"
+                                class="character-count"></span> /
+                            <span class="character-max-count"> {{ maxShortDescriptionCharacters }}</span>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Long description<span class="required">*</span></label>
+                        <editor 
+                            name="longDescription"
+                            formControlName="longDescription"
+                            [init]="{
+                                height: 400,
+                                promotion: false,
+                                branding: false,
+                                menubar: false,
+                                statusbar: false,
+                                license_key : 'gpl',
+                                toolbar: 'bold italic underline forecolor | fontsize fontfamily styles | autolink lists link image table fullscreen checklist bullist numlist hr',
+                                plugins: 'autolink lists link image table fullscreen',
+                                block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3',
+                                content_style: 'body { font-family: Arial; }',
+                                style_formats: [
+                                    {title: 'Headers', items: [
+                                        {title: 'Header 1', format: 'h1'},
+                                        {title: 'Header 2', format: 'h2'},
+                                        {title: 'Header 3', format: 'h3'},
+                                        {title: 'Header 4', format: 'h4'},
+                                        {title: 'Header 5', format: 'h5'},
+                                        {title: 'Header 6', format: 'h6'}
+                                ]}]
+                                }"></editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center pt-2 pb-5">
+        <button 
+            class="btn btn-primary me-2"
+            [routerLink]="['/position']">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Update</button>
+    </div>
+</form>

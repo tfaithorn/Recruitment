@@ -1,0 +1,174 @@
+<h2>Position</h2>
+<hr>
+<app-back-button [classNames]="'mb-2 me-2'"></app-back-button>
+<button 
+    class="btn btn-primary mb-2" 
+    type="button"
+    [routerLink]="['/position/', positionId]">Edit
+</button>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card h-100">
+            <h5 class="card-header text-center">Position Details</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label for="name" class="form-label pt-0">Title:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.name }}
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="category" class="form-label pt-0">Location:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        TBD
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="category" class="form-label pt-0">Category:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        <ol>
+                            <li *ngFor="let category of position?.categories"> {{ category.name }}</li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="workType" class="form-label pt-0">Work Type:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.workType }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-lg-12">
+        <div class="card h-100">
+            <h5 class="card-header text-center">Pay Details</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label for="name" class="form-label pt-0">Pay Type:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.payType }}
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="name" class="form-label pt-0">Minimum Salary:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.minimumSalary }}
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="maximumSalary" class="form-label pt-0">Maximum Salary:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.maximumSalary }}
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="visibleSalary" class="form-label pt-0">Visible Salary:</label>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        {{ position?.visibleSalary }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="col-lg-12 mt-3">
+        <div class="card h-100">
+            <h5 class="card-header text-center">Job Details</h5>
+            <div class="card-body">
+                <div class="row ps-1 px-5">
+                    <div class="col-sm-6 text-right">
+                        <label for="shortDescription" class="form-label pt-0">Short Description:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        {{ position?.shortDescription }}
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <label for="longDescription" class="form-label pt-0">Long Description:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        {{ position?.longDescription }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+<div class="card mb-2 mt-2">
+    <h5 class="card-header text-center">Pending Applicants</h5>
+    <div class="card-body h-100 p-0">
+        <div class="applicant-stage-container" *ngIf="getPendingApplicants()?.length">
+            <div class="applicant-container">
+                <div class="applicant-offset"></div>
+                <div *ngFor="let positionApplicant of getPendingApplicants()" class="applicant" [routerLink]="['/applicant/', positionApplicant.applicant.id]">
+                    {{ positionApplicant.applicant.firstName + " " + positionApplicant.applicant.lastName }} 
+                </div>
+            </div>
+            <div class="flex-grow-1 stage-container">
+                <table class="w-100">
+                    <thead class="stage-headers">
+                        <tr>
+                            <th *ngFor="let stage of position?.stages" class="stage-header">
+                                {{ stage.name }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  class="applicant-stage-row" *ngFor="let positionApplicant of getPendingApplicants()" >
+                            <td
+                                class="applicant-stage"
+                                *ngFor="let stage of position?.stages; let i = index;" >
+                                    <div [ngClass]="{'completed-bar':  positionApplicant.stage.position > stage.position }"></div>
+                                    <div [ngClass]="{'current-bar':  positionApplicant.stage.position == stage.position }"></div>
+                                    <div *ngIf="positionApplicant.stage.position == stage.position" class="current-circle" ></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="!getPendingApplicants()?.length" class="text-center pt-2 pb-2">
+            There are not pending applicants.
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-sm-6 mb-0">
+        <div class="card mb-0 mt-2">
+            <h5 class="card-header text-center">Hired</h5>
+            <div class="card-body pb-0 pt-0 px-0">
+                <table class="table table-hover mb-0" *ngIf="getHiredApplicants()?.length">
+                    <tbody>
+                        <tr *ngFor="let positionApplicant of getHiredApplicants()" class="clickable">
+                            <td>{{ positionApplicant.applicant.firstName + " " + positionApplicant.applicant.lastName }}</td>    
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="!getHiredApplicants()?.length" class="text-center pt-2 pb-2">
+                    There are no hired applicants.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card mt-2 mb-0">
+            <h5 class="card-header text-center">Declined</h5>
+            <div class="card-body pb-0 pt-0 px-0">
+                <table class="table table-hover mb-0 pb-0" *ngIf="getDeclinedApplicants()?.length">
+                    <tbody>
+                        <tr *ngFor="let positionApplicant of getDeclinedApplicants()" class="clickable">
+                            <td>{{ positionApplicant.applicant.firstName + " " + positionApplicant.applicant.lastName }}</td>    
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="!getDeclinedApplicants()?.length" class="text-center pt-2 pb-2">
+                    There are no declined applicants.
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
