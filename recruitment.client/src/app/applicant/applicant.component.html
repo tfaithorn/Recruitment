@@ -37,10 +37,10 @@
 
 <div class="card mt-2">
     <h5 class="card-header text-center">
-        Applications
+        Positions Applied For
     </h5>
     <div class="card-body">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Position ID</th>
@@ -51,10 +51,10 @@
             </thead>
             <tbody>
                 <ng-container *ngFor="let positionApplication of applicant?.positionApplications">
-                    <tr *ngIf="positionApplication.finishedAt !== undefined">
+                    <tr *ngIf="positionApplication.finishedAt !== undefined" class="selectable" [routerLink]="['/position', positionApplication.position?.id, 'applicants']">
                         <td>{{ positionApplication.position?.id }}</td>
                         <td>{{ positionApplication.position?.name }}</td>
-                        <td>{{ positionApplication.finishedAt }}</td>
+                        <td>{{ dateService.formatLocaleString(positionApplication.finishedAt) }}</td>
                         <td>TBD</td>
                     </tr>
                 </ng-container>
@@ -68,6 +68,24 @@
         Notes
     </h5>
     <div class="card-body">
-        They smell good
+        <p *ngIf="!applicant?.applicantNotes?.length">There are no notes for this applicant.</p>
+        <ul *ngIf="applicant?.applicantNotes?.length"  class="list-group">
+            <table class=table>
+                <thead>
+                    <tr>
+                        <th class="applicant-note">Note</th>
+                        <th class="applicant-note-createdby">Created By</th>
+                        <th class="applicant-note-createdat">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let applicantNote of applicant?.applicantNotes">
+                        <td class="applicant-note">{{ applicantNote.content }}</td>
+                        <td class="applicant-note-createdby">{{ userService.buildName(applicantNote.creator) }}</td>
+                        <td class="applicant-note-createdat">{{ dateService.formatLocaleString(applicantNote.createdAt) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ul>
     </div>
 </div>

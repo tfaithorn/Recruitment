@@ -1,8 +1,12 @@
+import { NgFor } from '@angular/common';
 import { AfterContentChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-fancy-grid',
+  standalone: true,
   templateUrl: './fancy-grid.component.html',
+  imports: [RouterLink, NgFor],
   styleUrls: ['./fancy-grid.component.css']
 })
 export class FancyGridComponent implements OnInit, AfterContentChecked {

@@ -42,7 +42,7 @@ export interface Position {
     applicantTotal: number;
     hiredTotal : number;
     declinedTotal : number;
-    createdAt : string;
+    createdAt : Date;
     createdBy : string;
     workType : string;
     contactEmail : string;

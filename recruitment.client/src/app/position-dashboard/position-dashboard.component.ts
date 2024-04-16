@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { PositionService, Position } from '../services/position.service';
-import { FancyGridData } from '../common/fancy-grid/fancy-grid.component';
-import { Router } from '@angular/router';
+import { FancyGridComponent, FancyGridData } from '../common/fancy-grid/fancy-grid.component';
+import { BreadcrumbComponent } from '../common/breadcrumb/breadcrumb.component';
+import { Router, RouterLink } from '@angular/router';
+import { MessageContainerComponent } from '../message-container/message-container.component';
+import { NgFor } from '@angular/common';
+import { DateService } from '../services/date.service';
 
 @Component({
   selector: 'app-positions',
   templateUrl: './position-dashboard.component.html',
+  standalone: true,
+  imports: [BreadcrumbComponent, RouterLink, MessageContainerComponent, FancyGridComponent],
   styleUrls: ['./position-dashboard.component.css']
 })
 export class PositionDashboardComponent implements OnInit {
@@ -13,8 +19,9 @@ export class PositionDashboardComponent implements OnInit {
     successes : string[] = [];
 
     constructor(
-        private positionService : PositionService, 
-        private router : Router) { }
+        private positionService: PositionService,
+        private dateService: DateService,
+        private router: Router) { }
 
     ngOnInit(): void {
         const state = this.router.getCurrentNavigation()?.extras.state;
@@ -80,7 +87,7 @@ export class PositionDashboardComponent implements OnInit {
                             styles : 'max-width:110px;'
                         },
                         {
-                            content : position.createdAt,
+                            content : this.dateService.formatDateString(position.createdAt),
                             styles : 'max-width:150px;'
                         }
                     ],

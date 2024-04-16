@@ -36,3 +36,7 @@
 .required {
     color:red;
 }
+
+.selectable {
+    cursor: pointer;
+}

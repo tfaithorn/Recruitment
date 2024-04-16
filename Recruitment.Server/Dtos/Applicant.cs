@@ -9,4 +9,5 @@ public class Applicant
     public string CreatedAt { get; set; }
     public string UpdatedAt { get; set; }
     public List<PositionApplicant>? PositionApplications { get; set; }
+    public List<ApplicantNote>? ApplicantNotes { get; set; }
 }

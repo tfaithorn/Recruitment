@@ -1,7 +1,10 @@
+import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-message-container',
+    standalone: true,
+    imports: [NgFor],
     templateUrl: './message-container.component.html',
     styleUrls: ['./message-container.component.css']
 })

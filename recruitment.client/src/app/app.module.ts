@@ -11,18 +11,15 @@ import { PositionComponent } from './position/position.component';
 import { PositionService } from './services/position.service';
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FancyGridComponent } from './common/fancy-grid/fancy-grid.component';
 import { PositionApplicantsComponent } from './position-applicants/position-applicants.component';
-import { MessageContainerComponent } from './message-container/message-container.component';
 import { ApplicantService } from './services/applicant.service';
-import { BackButtonComponent } from './common/back-button/back-button.component';
 import { ApplicantComponent } from './applicant/applicant.component';
 
 const routes: Routes = [
     { path: 'applicant/:id', component: ApplicantComponent },
     { path: 'position', component: PositionDashboardComponent },
     { path: 'position/new', component: PositionComponent },
-    { path: 'position/:id', component: PositionComponent },
+    { path: 'position/:id/edit', component: PositionComponent },
     { path: 'position/:id/applicants', component: PositionApplicantsComponent },
     { path: 'position-template', component: PositionTemplatesComponent },
     { path: 'section', component: SectionsComponent },
@@ -33,10 +30,7 @@ const routes: Routes = [
     AppComponent,
     NavComponent,
     PositionTemplatesComponent,
-    SectionsComponent,
-    PositionDashboardComponent,
-    FancyGridComponent,
-    MessageContainerComponent
+    SectionsComponent
   ],
   imports: [
     BrowserModule,

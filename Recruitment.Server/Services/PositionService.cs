@@ -195,10 +195,27 @@ public class PositionService
 
                     int positionId = await conn.QueryFirstAsync<int>(sql, param: parameters, transaction: trans);
                     //TODO: Categories
-                    if (positionInput.CategoryIds != null) {
-                        foreach (int categoryId in positionInput.CategoryIds)
+                    
+                    foreach (int categoryId in positionInput.CategoryIds)
+                    {
+                        var categorySql = "INSERT INTO PositionCategory (positionId, categoryId) VALUES (@positionId, @categoryId);";
+                        var categoryParameters = new Dictionary<string, object>()
                         {
-                        }
+                            { "@positionId", positionId },
+                            { "@categoryId", categoryId },
+                        };
+                        conn.Execute(categorySql, param: categoryParameters, transaction: trans);
+                    }
+
+                    foreach (int locationId in positionInput.LocationIds)
+                    {
+                        var categorySql = "INSERT INTO PositionLocation(positionId, locationId) VALUES (@positionId, @locationId);";
+                        var categoryParameters = new Dictionary<string, object>()
+                        {
+                            { "@positionId", positionId },
+                            { "@locationId", locationId },
+                        };
+                        conn.Execute(categorySql, param: categoryParameters, transaction: trans);
                     }
 
                     trans.Commit();

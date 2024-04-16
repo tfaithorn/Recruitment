@@ -1,0 +1,5 @@
+<ol class="breadcrumb">
+    <li *ngFor="let part of parts; let i = index" class="breadcrumb-item" [ngClass]="{ 'active': i == parts.length }">
+        <a [routerLink]="[part.routerLink]">{{ part.name }}</a>
+    </li>
+</ol>

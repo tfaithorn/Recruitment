@@ -53,7 +53,6 @@ public class ApplicantService
 
         if (criteria.IncludePositions ?? false)
         {
-            Debug.WriteLine("is including positions?");
             using (var conn = new SqlConnection(sqlClient.GetConnectionString()))
             {
                 foreach (var applicant in applicants)
@@ -72,6 +71,30 @@ public class ApplicantService
                         },
                         splitOn: "Id"
                         ).ToList();
+                }
+            }
+        }
+
+        if (criteria.IncludeNotes ?? false)
+        {
+            using (var conn = new SqlConnection(sqlClient.GetConnectionString()))
+            {
+                foreach (var applicant in applicants)
+                {
+                    var applicantNotesSql = $@"SELECT * 
+                                            FROM ApplicantNote
+                                            JOIN [dbo].[User] ON [dbo].[User].Id = ApplicantNote.UserId
+                                            WHERE 
+                                                ApplicantNote.ApplicantId = {applicant.Id}
+                                            ORDER BY 
+                                                ApplicantNote.CreatedAt DESC;";
+                    applicant.ApplicantNotes = conn.Query<ApplicantNote, User, ApplicantNote>(
+                        sql: applicantNotesSql, 
+                        (an, u) => {
+                            an.Creator = u;
+                            return an;
+                        },
+                        splitOn: "Id").ToList();
                 }
             }
         }

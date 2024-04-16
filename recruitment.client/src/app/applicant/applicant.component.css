@@ -17,3 +17,13 @@
     padding-left:10px;
     -webkit-text-size-adjust:100%;
 }
+
+.applicant-note-createdby, .applicant-note-createdat {
+    white-space: nowrap;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.applicant-note {
+    width:99%;
+}
