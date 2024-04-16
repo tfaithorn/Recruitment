@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Recruitment.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6c6842c470946ea0bed5ebb7c4b34b1152c6f5d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Recruitment.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Recruitment.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

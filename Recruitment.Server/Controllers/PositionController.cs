@@ -47,15 +47,14 @@ public class PositionController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public async Task<IActionResult> Put([FromRoute] int id, [FromBody] PositionInput positionInput)
     {
+        var positionService = new PositionService();
+        return Ok(await positionService.Update(id, positionInput));
     }
-
 
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
     }
-
-
 }

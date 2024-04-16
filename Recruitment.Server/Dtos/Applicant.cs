@@ -8,5 +8,5 @@ public class Applicant
     public string Email { get; set; }
     public string CreatedAt { get; set; }
     public string UpdatedAt { get; set; }
-    public List<PositionApplicant>? PositionApplicants { get; set; }
+    public List<PositionApplicant>? PositionApplications { get; set; }
 }

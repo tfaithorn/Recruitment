@@ -18,7 +18,7 @@ public class PositionService
         var queryParameters = new SqlClient.QueryParameters();
         
         var sql = "SELECT ";
-        var selectCriteria = new List<string>() { "p.*" };
+        var selectCriteria = new List<string>() { "Position.*" };
         var conditions = new List<SqlCondition>();
 
         if (criteria.IncludeApplicantTotal ?? false)
@@ -27,7 +27,7 @@ public class PositionService
                             SELECT COUNT(*) 
                             FROM PositionApplicant 
                             WHERE 
-                                PositionId = p.Id 
+                                PositionId = Position.Id 
                         ) AS ApplicantTotal");
         }
 
@@ -37,7 +37,7 @@ public class PositionService
                             SELECT COUNT(*) 
                             FROM PositionApplicant 
                             WHERE 
-                                PositionId = p.Id 
+                                PositionId = Position.Id 
                                 AND StageId IN (SELECT Id FROM Stage WHERE slug = 'hired')
                         ) AS HiredTotal");
         }
@@ -48,17 +48,17 @@ public class PositionService
                             SELECT COUNT(*) 
                             FROM PositionApplicant
                             WHERE 
-                                PositionId = p.Id 
+                                PositionId = Position.Id 
                                  AND StageId IN (SELECT Id FROM Stage WHERE slug = 'declined')
                         ) AS DeclinedTotal");
         }
 
         sql += string.Join(", ", selectCriteria.ToArray());
-        sql += $" FROM {tableName} AS p";
+        sql += $" FROM {tableName}";
 
         if (criteria.id != null)
         {
-            conditions.Add(new SqlCondition("Id", criteria.id));
+            conditions.Add(new SqlCondition("Position.Id", criteria.id));
         }
 
         if (conditions.Count > 0)
@@ -75,9 +75,9 @@ public class PositionService
                 var selectorParts = orderByPart.Split(" ");
                 if (selectorParts.Length == 2)
                 {
-                    if (selectorParts[0] == "p.id")
+                    if (selectorParts[0].ToLower() == "position.id")
                     {
-                        orderByStr += "p.id";
+                        orderByStr += "Position.id";
                     }
 
                     orderByStr += " ";
@@ -170,7 +170,6 @@ public class PositionService
 
     public async Task<Position> Create(PositionInput positionInput)
     {
-        var position = new Position();
         var sqlClient = new SqlClient();
         using (var conn = new SqlConnection(sqlClient.GetConnectionString()))
         {
@@ -194,20 +193,96 @@ public class PositionService
                     parameters["@VisibleSalary"] = positionInput.VisibleSalary;
                     sql += "; SELECT SCOPE_IDENTITY()";
 
-                    int positionId = conn.QueryFirst<int>(sql, param: parameters, transaction: trans);
+                    int positionId = await conn.QueryFirstAsync<int>(sql, param: parameters, transaction: trans);
                     //TODO: Categories
+                    if (positionInput.CategoryIds != null) {
+                        foreach (int categoryId in positionInput.CategoryIds)
+                        {
+                        }
+                    }
 
                     trans.Commit();
 
-                    position = this.FindBy(new PositionCriteria { id = positionId })[0];
+                    return this.FindBy(new PositionCriteria { id = positionId })[0];
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e.Message);
                     trans.Rollback();
+                    throw new Exception(e.Message);
                 }
             }
         }
-        return position;
+    }
+
+    public async Task<Position> Update(int id, PositionInput positionInput)
+    {
+        var sqlClient = new SqlClient();
+        using (var conn = new SqlConnection(sqlClient.GetConnectionString()))
+        {
+            conn.Open();
+            using (var trans = conn.BeginTransaction())
+            {
+                try
+                {
+                    var sql = @"UPDATE Position 
+                                SET 
+                                    Name = @Name,
+                                    WorkType = @WorkType, 
+                                    ContactEmail = @ContactEmail, 
+                                    ShortDescription = @ShortDescription, 
+                                    LongDescription = @LongDescription, 
+                                    PayType = @PayType, 
+                                    MinimumSalary = @MinimumSalary, 
+                                    MaximumSalary = @MaximumSalary, 
+                                    VisibleSalary = @VisibleSalary
+                                WHERE 
+                                    Id = @Id";
+
+                    Dictionary<string, object> parameters = new Dictionary<string, object>();
+                    parameters["@Name"] = positionInput.Name;
+                    parameters["@WorkType"] = positionInput.WorkType;
+                    parameters["@ContactEmail"] = positionInput.ContactEmail;
+                    parameters["@ShortDescription"] = positionInput.ShortDescription;
+                    parameters["@LongDescription"] = positionInput.LongDescription;
+                    parameters["@PayType"] = positionInput.PayType;
+                    parameters["@MinimumSalary"] = positionInput.MinimumSalary;
+                    parameters["@MaximumSalary"] = positionInput.MaximumSalary;
+                    parameters["@VisibleSalary"] = positionInput.VisibleSalary;
+                    parameters["@Id"] = id;
+
+                    await conn.ExecuteAsync(sql, param: parameters, transaction: trans);
+
+                    //categories
+                    sqlClient.ReplaceAssociativeValues(
+                        id: id,
+                        idColName: "PositionId",
+                        associativeIdColName: "CategoryId",
+                        tableName: "PositionCategory",
+                        newIds: positionInput.CategoryIds.ToList(),
+                        conn: conn,
+                        trans: trans);
+
+                    //locations
+                    sqlClient.ReplaceAssociativeValues(
+                        id: id, 
+                        idColName: "PositionId", 
+                        associativeIdColName: "LocationId", 
+                        tableName: "PositionLocation", 
+                        newIds: positionInput.LocationIds.ToList(), 
+                        conn: conn, 
+                        trans: trans);
+
+                    trans.Commit();
+                    return this.FindBy(new PositionCriteria { id = id })[0];
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    trans.Rollback();
+                    throw new Exception(e.Message);
+                }
+            }
+        }
     }
 }

@@ -51,16 +51,27 @@ public class ApplicantService
             applicants = conn.Query<Applicant>(sql, queryParameters.parameters).ToList();
         }
 
-        if (criteria.IncludePositionApplicant ?? false)
+        if (criteria.IncludePositions ?? false)
         {
+            Debug.WriteLine("is including positions?");
             using (var conn = new SqlConnection(sqlClient.GetConnectionString()))
             {
                 foreach (var applicant in applicants)
                 {
-                    var positionApplicationSql = @"SELECT * 
+                    
+                    var positionApplicationSql = @"SELECT PositionApplicant.*, Position.* 
                                                 FROM PositionApplicant 
-                                                WHERE PositionApplicant.ApplicantId = " + applicant.Id;
-                    applicant.PositionApplicants = conn.Query<PositionApplicant>(positionApplicationSql).ToList();
+                                                JOIN Position ON Position.id = PositionApplicant.PositionId
+                                                WHERE 
+                                                    PositionApplicant.ApplicantId = " + applicant.Id;
+                    applicant.PositionApplications = conn.Query<PositionApplicant, Position, PositionApplicant>(
+                        positionApplicationSql,
+                        (pa, p) => {
+                            pa.Position = p;
+                            return pa;
+                        },
+                        splitOn: "Id"
+                        ).ToList();
                 }
             }
         }
