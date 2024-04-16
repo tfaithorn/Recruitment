@@ -12,7 +12,7 @@ import { PositionService } from './services/position.service';
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FancyGridComponent } from './common/fancy-grid/fancy-grid.component';
-import { PositionApplicantsComponent } from './position-applicants/positin-applicants.component';
+import { PositionApplicantsComponent } from './position-applicants/position-applicants.component';
 import { MessageContainerComponent } from './message-container/message-container.component';
 import { ApplicantService } from './services/applicant.service';
 import { BackButtonComponent } from './common/back-button/back-button.component';

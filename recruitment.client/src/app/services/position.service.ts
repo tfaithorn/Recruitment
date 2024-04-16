@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Applicant } from './applicant.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Location } from '../location.service';
+import { Location } from './location.service';
+import { Category } from './category.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,11 +12,11 @@ export class PositionService {
     constructor(private http : HttpClient) { }
 
     create(positionInput : PositionInput) : Observable<Position> {
-        return this.http.post<Position>('/api/position/findby', positionInput);
+        return this.http.post<Position>('/api/position', positionInput);
     }
   
     update (id : number, positionInput : PositionInput) : Observable<Position> {
-        return this.http.put<Position>('/api/position', positionInput)
+        return this.http.put<Position>('/api/position/' + id, positionInput)
     }
 
     findBy(criteria: PositionCriteria) : Observable<Position[]> {
@@ -57,22 +58,18 @@ export interface Position {
     locations? : Location[];
 }
 
-export interface Category {
-    id : number;
-    name : string;
-}
-
 export interface PositionInput {
     name : string;
     workType : string;
     contactEmail : string;
-    shortDescription : string;
-    longDescription : string;
-    categoryId : number,
+    categoryIds : number[],
+    locationIds : number[],
     payType : string;
     minimumSalary : number;
     maximumSalary : number;
     visibleSalary : number;
+    shortDescription : string;
+    longDescription : string;
 }
 
 export interface PositionApplicant {
@@ -81,6 +78,8 @@ export interface PositionApplicant {
     applicant : Applicant;
     stage : Stage;
     responses : QuestionResponse[];
+    startedAt : Date;
+    finishedAt : Date;
 }
 
 export interface Stage {

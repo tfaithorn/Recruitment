@@ -7,7 +7,7 @@
         </div>
         <div class="text-input-container">
             <input type="text" #textInput [placeholder]="placeholder" class="form-control" (focus)="showOptions($any($event.target).value)" (focusout)="hideOptions()" (input)="updateSearchText($any($event.target).value)">
-            <div *ngIf="optionsVisible && filteredOptions" #dropdownSelector class="multi-select-dropdown">
+            <div *ngIf="optionsVisible && filteredOptions && filteredOptions.length > 0" #dropdownSelector class="multi-select-dropdown">
                 <div *ngFor="let option of filteredOptions">
                     <div class="multi-select-dropdown-option" (click)="add(option.value)">
                         {{ option.name }}

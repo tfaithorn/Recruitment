@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Position } from './position.service';
+import { Position, PositionApplicant } from './position.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ export class ApplicantService {
 export interface ApplicantCriteria {
     id? : number;
     positionId? : number;
-    includePositionApplicant? : boolean;
+    includePositions? : boolean;
 }
 
 export interface Applicant {
@@ -25,4 +25,5 @@ export interface Applicant {
     firstName : string;
     lastName : string;
     email : string;
+    positionApplications?: PositionApplicant[];
 }

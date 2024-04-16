@@ -78,22 +78,22 @@
     border-left: 0px;
 }
 
-.completed-bar {
+.completed-stage {
     background-color: rgb(66, 205, 66);
     border: 0px;
-    width: calc(100% + 1px);
-    height:15px;
+    width: calc(100% + 2px);
+    height:20px;
     cursor: pointer;
 }
 
-.current-bar {
+.current-stage {
     background-color: rgb(66, 205, 66);
-    height:15px;
     width: 50%;
+    height: 20px;
     cursor: pointer;
 }
 
-.current-bar:hover, .completed-bar:hover {
+.current-stage:hover, .completed-stage:hover {
     background-color: rgb(57, 173, 57);
 }
 
@@ -106,12 +106,13 @@
     position:absolute;
     top: calc(50% - 12.5px);
     left: calc(50% - 12.5px);
-}
-
-.current-circle:hover {
-    background-color: rgb(220, 219, 219);
     cursor: pointer;
 }
+
+/* .current-circle:hover {
+    background-color: rgb(220, 219, 219);
+    cursor: pointer;
+} */
 
 .declined-stage {
     background-color: red;

@@ -55,7 +55,7 @@ export class PositionDashboardComponent implements OnInit {
             includeApplicantTotal : true,
             includeDeclinedTotal: true,
             includeHiredTotal : true,
-            orderBy : 'p.id DESC'
+            orderBy : 'Position.id DESC'
         }).subscribe(res => {
             const rows = res.map(position => {
                 return {

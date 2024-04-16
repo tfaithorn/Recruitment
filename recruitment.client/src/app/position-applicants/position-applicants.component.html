@@ -121,8 +121,8 @@
                             <td
                                 class="applicant-stage"
                                 *ngFor="let stage of position?.stages; let i = index;" >
-                                    <div [ngClass]="{'completed-bar':  positionApplicant.stage.position > stage.position }"></div>
-                                    <div [ngClass]="{'current-bar':  positionApplicant.stage.position == stage.position }"></div>
+                                    <div [ngClass]="{'completed-stage':  positionApplicant.stage.position > stage.position }"></div>
+                                    <div [ngClass]="{'current-stage':  positionApplicant.stage.position == stage.position }"></div>
                                     <div *ngIf="positionApplicant.stage.position == stage.position" class="current-circle" ></div>
                             </td>
                         </tr>

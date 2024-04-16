@@ -1,9 +1,10 @@
 <h2>Applicant</h2>
 <hr>
+<app-back-button [classNames]="'mb-2 me-2'"></app-back-button>
 <div class="card">
-    <div class="card-header">
+    <h5 class="card-header text-center">
       Applicant Details
-    </div>
+    </h5>
     <div class="card-body">
         <div class="applicant-form-container">
             <div class="applicant-form-group">
@@ -35,6 +36,38 @@
 </div>
 
 <div class="card mt-2">
+    <h5 class="card-header text-center">
+        Applications
+    </h5>
     <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Position ID</th>
+                    <th>Position</th>
+                    <th>Date Applied</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let positionApplication of applicant?.positionApplications">
+                    <tr *ngIf="positionApplication.finishedAt !== undefined">
+                        <td>{{ positionApplication.position?.id }}</td>
+                        <td>{{ positionApplication.position?.name }}</td>
+                        <td>{{ positionApplication.finishedAt }}</td>
+                        <td>TBD</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <h5 class="card-header text-center">
+        Notes
+    </h5>
+    <div class="card-body">
+        They smell good
     </div>
 </div>

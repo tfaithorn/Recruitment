@@ -34,13 +34,12 @@ export class MultiSelectDropdownComponent implements ControlValueAccessor, OnIni
 
     add(value : any) {
         this.selectedValues.push(value);
-        this.onChange(value);
-        console.log(this.selectedValues);
+        this.onChange(this.selectedValues);
     }
 
     updateSearchText(text : string) {
         this.searchText = text;
-        this.filteredOptions = this.options.filter(x => !this.selectedValues.includes(x.value) && x.name.includes(this.searchText));
+        this.filteredOptions = this.options.filter(x => !this.selectedValues.includes(x.value) && x.name.toLowerCase().includes(this.searchText.toLowerCase()));
     }
 
     showOptions(text : string) {
@@ -48,7 +47,7 @@ export class MultiSelectDropdownComponent implements ControlValueAccessor, OnIni
         this.updateSearchText(text);
     }
     hideOptions() {
-        //a buffer is needed to allow time for onclick on the  options to trigger 
+        //a buffer is needed to allow time for onclick on the options to trigger 
         setTimeout(() => {
             this.optionsVisible = false;
         }, 200)
@@ -60,13 +59,13 @@ export class MultiSelectDropdownComponent implements ControlValueAccessor, OnIni
 
     removeOption(value : any) {
         this.selectedValues.splice(this.selectedValues.indexOf(value), 1);
-        console.log(this.selectedValues);
     }
 
     writeValue(values: any): void {
         values.forEach( (x : any) => {
             this.add(x);
         });
+        this.onChange(this.selectedValues);
     }
 
     registerOnChange(onChange: any): void {
