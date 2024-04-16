@@ -10,6 +10,6 @@ The Backend is .net Web APIs with Dapper ORM, and SQL Server.
 
 
 ## Future Plans
-- Using AWS Congnito for user authentication.
+- Implement AWS Congnito for user authentication.
 - Implememt .net data annotations library for backend data validation.
 - Add a simple migration syste, should it become necessary.
