@@ -1,16 +1,16 @@
 # Recruitment Platform
-This is a project I've been working on to test out Dapper with .net Web APIs to create a simple Recruitment platform.
-The idea is the platform will let you manage position on external job boards (such as SEEK & Indeed) as well as your own website. 
+Applicant Tracking System using Dapper & .Net Web APIs to create a simple Recruitment platform.
+The platform will let you manage position on external job boards (e.g. SEEK & Indeed) as well as your own website. 
 
 ## Frontend
-The frontend framework used is Angular 16, and  Bootstrap is used for quick & easy styling.
+The frontend is Angular & Bootstrap.
 
 ## Backend
-The Backend is .net Web APIs with Dapper ORM, and SQL Server. 
+The Backend is .net Web APIs, using the Dapper ORM and an SQL Server database. 
 
 
 ## Future Plans
-- Implement AWS Congnito for password management
-- Implement JWT tokens for authentication
-- Implememt .net data annotations library for backend data validation.
-- Add a simple migration syste, should it become necessary.
+- Integrate AWS Congnito or Microsoft Entra
+- Implement JWT tokens
+- Implememt .net data annotations for validation.
+- Add a simple migration system (since Entity Framework isn't being used).
